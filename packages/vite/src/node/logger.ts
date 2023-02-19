@@ -142,6 +142,7 @@ export function createLogger(
 export function printServerUrls(
   urls: ResolvedServerUrls,
   optionsHost: string | boolean | undefined,
+  open: string | boolean | undefined,
   info: Logger['info'],
 ): void {
   const colorUrl = (url: string) =>
@@ -151,6 +152,13 @@ export function printServerUrls(
   }
   for (const url of urls.network) {
     info(`  ${colors.green('➜')}  ${colors.bold('Network')}: ${colorUrl(url)}`)
+  }
+  if (typeof open === 'string' && urls.local.length > 0) {
+    info(
+      `  ${colors.green('➜')}  ${colors.bold('Open')}:   ${colorUrl(
+        new URL(open, urls.local[0]).href,
+      )}`,
+    )
   }
   if (urls.network.length === 0 && optionsHost === undefined) {
     info(

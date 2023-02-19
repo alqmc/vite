@@ -429,6 +429,7 @@ export async function createServer(
         printServerUrls(
           server.resolvedUrls,
           serverConfig.host,
+          server.config.server.open,
           config.logger.info,
         )
       } else if (middlewareMode) {
